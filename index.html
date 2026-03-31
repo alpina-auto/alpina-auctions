@@ -3,46 +3,61 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Auto Alpina Auctions(Pty)Ltd</title>
-    <script src="https://www.gstatic.com/firebasejs/9.1.0/firebase-app.js"></script>
-    <script src="https://www.gstatic.com/firebasejs/9.1.0/firebase-database.js"></script>
-    <script src="https://www.gstatic.com/firebasejs/9.1.0/firebase-storage.js"></script>
+    <title>Alpina Auctions</title>
+    <link rel="stylesheet" href="styles.css">
 </head>
 <body>
-    <h1>Welcome to Auto Alpina Auctions(Pty)Ltd</h1>
+    <header>
+        <h1>Welcome to Alpina Auctions</h1>
+        <nav>
+            <ul>
+                <li><a href="#home">Home</a></li>
+                <li><a href="#about">About Us</a></li>
+                <li><a href="#inventory">Inventory</a></li>
+                <li><a href="#contact">Contact Us</a></li>
+                <li><a href="#admin">Admin Portal</a></li>
+            </ul>
+        </nav>
+    </header>
+    <section id="home">
+        <h2>Home</h2>
+        <p>Your trusted place for vehicle auctions.</p>
+    </section>
+    <section id="about">
+        <h2>About Us</h2>
+        <p>Learn more about our company and values.</p>
+    </section>
+    <section id="inventory">
+        <h2>Inventory</h2>
+        <p>Check out our latest vehicles up for auction.</p>
+    </section>
+    <section id="contact">
+        <h2>Contact Us</h2>
+        <p>Get in touch via WhatsApp: <a href="https://wa.me/1234567890">Chat with us!</a></p>
+        <div id="map"></div>
+    </section>
+    <section id="admin">
+        <h2>Admin Portal</h2>
+        <p>Admin access for managing inventory and auctions.</p>
+    </section>
+    <footer>
+        <p>&copy; 2026 Alpina Auctions</p>
+    </footer>
     <script>
-        // Firebase configuration
-        const firebaseConfig = {
-            apiKey: "AIzaSyC_785J2g7-FRr1p02EFAGr0Hs8eB00s0I",
-            authDomain: "auto-alpina-auctions-be7e0.firebaseapp.com",
-            projectId: "auto-alpina-auctions-be7e0",
-            storageBucket: "auto-alpina-auctions-be7e0.firebasestorage.app",
-            messagingSenderId: "183730551827",
-            appId: "1:183730551827:web:b6fcae969bd2a5c46693e6"
-        };
-
-        // Initialize Firebase
-        const app = firebase.initializeApp(firebaseConfig);
-        const database = firebase.database();
-        const storage = firebase.storage();
-
-        // Function to upload images and store car data
-        function uploadCarData(carData, imageFile) {
-            // Upload image
-            const storageRef = storage.ref(`images/${imageFile.name}`);
-            storageRef.put(imageFile).then((snapshot) => {
-                console.log('Image uploaded successfully!');
-                snapshot.ref.getDownloadURL().then((imageUrl) => {
-                    // Store car data in Firebase Realtime Database
-                    const newCarRef = database.ref('cars').push();
-                    carData.imageUrl = imageUrl;
-                    newCarRef.set(carData);
-                });
+        function initMap() {
+            var location = { lat: -34.397, lng: 150.644 };
+            var map = new google.maps.Map(document.getElementById('map'), {
+                zoom: 8,
+                center: location
+            });
+            var marker = new google.maps.Marker({
+                position: location,
+                map: map
             });
         }
-
-        // Example of usage
-        // uploadCarData({ make: 'Toyota', model: 'Camry' }, selectedImageFile);
+    </script>
+    <script async defer
+    src="https://maps.googleapis.com/maps/api/js?key=YOUR_API_KEY&callback=initMap">
     </script>
 </body>
 </html>
